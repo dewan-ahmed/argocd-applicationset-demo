@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: list-git
+spec:
+  generators:
+  - matrix:
+      generators:
+      - git:
+          repoURL: https://github.com/dewandemo/applicationset.git
+          revision: HEAD
+          directories:
+          - path: examples/git-generator-directory/guestbook-example-apps/*
+      - list:
+          elements:
+          - cluster: engineering-dev
+            url: https://kubernetes.default.svc
+            values:
+              project: default
+          - cluster: engineering-prod
+            url: https://126296b7-844e-4379-9608-64e078e936e5.k8s.ondigitalocean.com
+            values:
+              project: default
+  template:
+    metadata:
+      name: '{{path.basename}}-{{cluster}}'
+    spec:
+      project: '{{values.project}}'
+      source:
+        repoURL: https://github.com/dewandemo/applicationset.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: '{{url}}'
+        namespace: '{{path.basename}}'
+      syncPolicy: 
+        automated: 
+          prune: true
+          selfHeal: true
+        syncOptions: 
+          - CreateNamespace=true  
