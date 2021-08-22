@@ -2,10 +2,11 @@
 
 ### Purpose
 
-This repository contains slides, Kubernetes manifest files and instructions for my talk *Deploy N Applications to N Clusters using Argo CD ApplicationSet*. 
+This repository contains slides, Kubernetes manifest files and instructions for my talk *Deploy N Applications to N Clusters using Argo CD ApplicationSet*. This is not a stand-alone workshop repository. You will need to refer to the talk slides/video to make sense of the exercises provided below. The resource section contains suggested readings/resources on GitOps, Argo CD and ApplicationSet.
 
 ### Pre-requisites
 
+- An understanding of Kubernetes, GitOps and Argo CD
 - Access to at least two managed Kubernetes clusters (recent versions preferred). For ease of reference, we'll call the cluster where Argo CD is installed `cluster-manager` and the other cluster(s) as `managed-cluster`. 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) & [argocd](https://argoproj.github.io/argo-cd/cli_installation/) CLI tools installed  (recent versions required)
 - [kubectx](https://github.com/ahmetb/kubectx) for easy Kubernetes cluster context switching (optional)
@@ -112,3 +113,19 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 - serviceaccount named **argocd-manager** in kube-system
 - clusterrole named **argocd-manager-role**
 - clusterrolebinding named **argocd-manager-role-binding**
+
+
+### Resources
+
+- [The history of GitOps](https://www.weave.works/blog/the-history-of-gitops)
+- [Continuous Lifecycle London 2018 Keynote on GitOps](https://www.slideshare.net/weaveworks/continuous-lifecycle-london-2018-event-keynote-97418556)
+- [What is GitOps Really](https://www.weave.works/blog/what-is-gitops-really)
+- [Alexis Richardson: GitOps - Git push all the things](https://www.youtube.com/watch?v=uWzgmmCzdF4)
+- [Everything You Need To Become a GitOps Ninja - Alex C. & Alexander M.](https://www.youtube.com/watch?v=r50tRQjisxw)
+- [GitOps in 1 slide](https://twitter.com/vitorsilva/status/999978906903080961/photo/1)
+- [Argo CD - GitHub](https://github.com/argoproj/argo-cd)
+- [Argo CD - ReadTheDocs](https://argo-cd.readthedocs.io/en/stable/)
+- [ApplicationSet - GitHub](https://github.com/argoproj-labs/applicationset)
+- [ApplicationSet - ReadTheDocs](https://argocd-applicationset.readthedocs.io/en/stable)
+- [ApplicationSet Introductory Blog by Jonathan West](https://blog.argoproj.io/introducing-the-applicationset-controller-for-argo-cd-982e28b62dc5)
+- [ApplicationSet Blog by Christian Hernandez](https://cloud.redhat.com/blog/getting-started-with-applicationsets)
