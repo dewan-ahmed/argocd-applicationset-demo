@@ -18,9 +18,8 @@ kubectl create namespace argocd
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/applicationset/master/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/applicationset/v0.2.0/manifests/install.yaml
 ```
-:construction: Notice that _ApplicationSet_ is installed from *master* rather than *v0.2.0*. This is because at the time of creating this lab, matrix-generator is not available on *v0.2.0*. 
 
 ### Accessing the Argo CD API Server
 
@@ -59,6 +58,8 @@ argocd account update-password --current-password <default admin password> --new
 ```
 ---
 
+:construction: For the following examples, make sure that the namespace already exists on the cluster(s) prior to creating the Application/ApplicationSet custom resource(s).
+
 ### Argo CD Demo
 
 ```
@@ -70,8 +71,6 @@ kubectl apply -f files/argocd-guestbook.yaml -n argocd
 ### ApplicationSet Demo
 
 **List Generator example**:
-
-Argo CD is able to create a namespace on the cluster it's installed on. However, it is unable to do so on the remote cluster. For this example, you have to create the namespace on the `managed-cluster` if it does not exist already.
 
 ```
 # Change the Kubernetes context first
