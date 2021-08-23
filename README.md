@@ -114,6 +114,19 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 - clusterrole named **argocd-manager-role**
 - clusterrolebinding named **argocd-manager-role-binding**
 
+2. What happens when an ApplicationSet is deleted?
+
+--> When an ApplicationSet is deleted, the following occurs (in rough order):
+
+- The ApplicationSet resource itself is deleted
+- Any Application resources that were created from this ApplicationSet (as identified by owner reference)
+- Any deployed resources (Deployments, Services, ConfigMaps, etc) on the managed cluster, that were created from that Application resource (by Argo CD), will be deleted.
+    - Argo CD is responsible for handling this deletion, via the deletion finalizer.
+    - To preserve deployed resources, set .syncPolicy.preserveResourcesOnDeletion to true in the ApplicationSet.
+
+Thus the lifecycle of the ApplicationSet, the Application, and the Application's resources, are equivalent.
+
+Read more [here](https://argocd-applicationset.readthedocs.io/en/stable/Application-Deletion/).
 
 ### Resources
 
@@ -123,8 +136,12 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 - [Alexis Richardson: GitOps - Git push all the things](https://www.youtube.com/watch?v=uWzgmmCzdF4)
 - [Everything You Need To Become a GitOps Ninja - Alex C. & Alexander M.](https://www.youtube.com/watch?v=r50tRQjisxw)
 - [GitOps in 1 slide](https://twitter.com/vitorsilva/status/999978906903080961/photo/1)
+- [Kubernetes anti-patterns: Let's do GitOps, not CIOps!](https://www.weave.works/blog/kubernetes-anti-patterns-let-s-do-gitops-not-ciops)
 - [Argo CD - GitHub](https://github.com/argoproj/argo-cd)
 - [Argo CD - ReadTheDocs](https://argo-cd.readthedocs.io/en/stable/)
+- [Companies using Argo CD](https://github.com/argoproj/argo-cd/blob/master/USERS.md)
+- [Some GitOps best practices using Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/)
+- [ApplicationSet Original Proposal](https://docs.google.com/document/d/1juWGr20FQaJmuuTIS8mBFmWWDU422M_FQMuhp5c1jt4)
 - [ApplicationSet - GitHub](https://github.com/argoproj-labs/applicationset)
 - [ApplicationSet - ReadTheDocs](https://argocd-applicationset.readthedocs.io/en/stable)
 - [ApplicationSet Introductory Blog by Jonathan West](https://blog.argoproj.io/introducing-the-applicationset-controller-for-argo-cd-982e28b62dc5)
