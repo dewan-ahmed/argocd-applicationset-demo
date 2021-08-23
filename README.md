@@ -99,9 +99,6 @@ kubectl apply -f files/git-generator-directory.yaml -n argocd
 ```
 kubectl apply -f files/matrix-generator.yaml -n argocd
 ```
-
-:construction: Similar to list generator example, you might need to create all three namespaces in the `managed-cluster` prior to executing the above command (for the same reason).
-
 ---
 
 ### FAQ
