@@ -11,8 +11,6 @@ spec:
     path: helm-nginx
     repoURL: 'https://github.com/dewandemo/argocd-example-apps'
     targetRevision: HEAD
-    kustomize:
-      namePrefix: devops-india-
   project: default
   syncPolicy:
     automated:
