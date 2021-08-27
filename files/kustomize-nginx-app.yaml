@@ -8,7 +8,7 @@ spec:
     namespace: helm-nginx-ns
     server: 'https://kubernetes.default.svc'
   source:
-    path: helm-nginx
+    path: kustomize-nginx-kubernetes
     repoURL: 'https://github.com/dewandemo/argocd-example-apps'
     targetRevision: HEAD
   project: default
