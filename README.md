@@ -63,6 +63,8 @@ argocd account update-password --current-password <default admin password> --new
 ### Argo CD Demo
 
 ```
+kubectl create namespace kustomize-nginx-ns
+
 kubectl apply -f files/kustomize-nginx-app.yaml -n argocd
 ```
 
