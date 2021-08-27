@@ -63,7 +63,7 @@ argocd account update-password --current-password <default admin password> --new
 ### Argo CD Demo
 
 ```
-kubectl apply -f files/argocd-guestbook.yaml -n argocd
+kubectl apply -f files/helm-nginx-app.yaml -n argocd
 ```
 
 ---

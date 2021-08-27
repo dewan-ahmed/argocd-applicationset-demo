@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook
+  name: helm-nginx-app
 spec:
   destination:
     name: ''
-    namespace: guestbook-ns
+    namespace: helm-nginx-ns
     server: 'https://kubernetes.default.svc'
   source:
-    path: kustomize-guestbook
-    repoURL: 'https://github.com/dewan-ahmed/argocd-example-apps'
+    path: helm-nginx
+    repoURL: 'https://github.com/dewandemo/argocd-example-apps'
     targetRevision: HEAD
     kustomize:
-      namePrefix: prod-
+      namePrefix: devops-india-
   project: default
   syncPolicy:
     automated:
