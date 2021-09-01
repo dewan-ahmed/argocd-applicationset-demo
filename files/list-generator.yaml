@@ -11,7 +11,7 @@ spec:
        values:
          project: default
      - cluster: engineering-prod
-       url: https://126296b7-844e-4379-9608-64e078e936e5.k8s.ondigitalocean.com
+       url: https://api.dahmed-ocp48.qe.devcluster.openshift.com:6443
        values:
          project: default
  template:
