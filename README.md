@@ -112,7 +112,11 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 - clusterrole named **argocd-manager-role**
 - clusterrolebinding named **argocd-manager-role-binding**
 
-2. What happens when an ApplicationSet is deleted?
+2. How is Flux CD similar or different from Argo CD?
+
+--> [This](https://luktom.net/en/e1683-argocd-vs-flux) article does an excellent job at answeing the same question.
+
+3. . What happens when an ApplicationSet is deleted?
 
 --> When an ApplicationSet is deleted, the following occurs (in rough order):
 
