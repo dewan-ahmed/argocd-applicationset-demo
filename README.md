@@ -116,7 +116,25 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 
 --> [This](https://luktom.net/en/e1683-argocd-vs-flux) article does an excellent job at answeing the same question.
 
-3. . What happens when an ApplicationSet is deleted?
+3. How is Tekton or Argo Workflow different from Argo CD?
+
+--> Tekton and Argo Workflow provide ways to declare workflow pipelines for execution on Kubernetes. Tekton focuses on source based workflows, while Argo Workflow is more general purpose.
+
+Argo CD is specifically built to address application delivery/deployment on Kubernetes following GitOps principles. That's why, it offers more sophistication and powerful features which cannot be expected from tools like Tekton or Argo Workflow. 
+
+4. How do you handle dev work when you're testing manifests in a namespace? Do you keep creating PRs or temporarily disable the sync?
+
+--> You can disable *auto-sync* under the Sync Policy but there is no concept of disabling sync. For dev work, I'll assume that you're using your own feature branch and also deploying to a dev cluster. In that case, it shouldn't matter if you play around as you can specify your own feature branch for the git repo and you won't need to create PRs (i.e. the webhook event will react to every push on your feature branch).
+
+5. Can we measure the latency of the self-healing functionality for Argo CD?
+
+--> I don't think it's possible from a user-end but there is a retry option that can be configured per Argo CD application. Refer to *syncPolicy* --> *retry* [here](https://argoproj.github.io/argo-cd/operator-manual/application.yaml). 
+
+6. When do we use different generators like the *Matrix Generator*?
+
+--> In this demo, the *list-generator* example deploys from a single repository to multiple clusters and the *git-generator-directory* example deploys from a monorepo to a single cluster. If you were to deploy from a monorepo to multiple clusters, you can use *Matrix Generator* and use both *list-generator* and *git-generator-directory* together. This is just an example as you can mix and match other generators together. 
+
+6. What happens when an ApplicationSet is deleted?
 
 --> When an ApplicationSet is deleted, the following occurs (in rough order):
 
