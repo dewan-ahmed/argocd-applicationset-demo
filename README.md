@@ -134,7 +134,7 @@ Argo CD is specifically built to address application delivery/deployment on Kube
 
 --> In this demo, the *list-generator* example deploys from a single repository to multiple clusters and the *git-generator-directory* example deploys from a monorepo to a single cluster. If you were to deploy from a monorepo to multiple clusters, you can use *Matrix Generator* and use both *list-generator* and *git-generator-directory* together. This is just an example as you can mix and match other generators together. 
 
-6. What happens when an ApplicationSet is deleted?
+7. What happens when an ApplicationSet is deleted?
 
 --> When an ApplicationSet is deleted, the following occurs (in rough order):
 
