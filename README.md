@@ -148,6 +148,15 @@ Thus the lifecycle of the ApplicationSet, the Application, and the Application's
 
 Read more [here](https://argocd-applicationset.readthedocs.io/en/stable/Application-Deletion/).
 
+8. Is there a concept of extensions in Argo CD?
+
+--> Argo CD allows integrating additional config management tools beyond the ones Argo CD is shipped with using [config management plugins](https://argoproj.github.io/argo-cd/user-guide/config-management-plugins/). 
+
+9. Does Argo CD integrate with Terraform?
+
+--> While there is no official integration for Argo CD with Terraform, you can certainly use Terraform for your infrastructure deployment and Argo CD for the application deployment. These two tools can work together.
+
+
 ### Resources
 
 - [The history of GitOps](https://www.weave.works/blog/the-history-of-gitops)
