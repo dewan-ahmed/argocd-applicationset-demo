@@ -128,7 +128,9 @@ Argo CD is specifically built to address application delivery/deployment on Kube
 
 5. Can we measure the latency of the self-healing functionality for Argo CD?
 
---> I don't think it's possible from a user-end but there is a retry option that can be configured per Argo CD application. Refer to *syncPolicy* --> *retry* [here](https://argoproj.github.io/argo-cd/operator-manual/application.yaml). 
+--> If you mean the latency to perform self-heal, I think it will perform the action immediately. The latency to finish is just the same as a normal sync operation. Argo CD is purely Kubernetes event driven, so the timing to detect the drift is almost instantaneous. 
+
+You might also want to check-out retry option that can be configured per Argo CD application. Refer to *syncPolicy* --> *retry* [here](https://argoproj.github.io/argo-cd/operator-manual/application.yaml). 
 
 6. When do we use different generators like the *Matrix Generator*?
 
