@@ -105,67 +105,9 @@ kubectl apply -f files/matrix-generator.yaml -n argocd
 
 ### FAQ
 
-1. What is the difference between Infrastrucutre as Code and GitOps?
+As I deliver talks, I collect questions from the audience and then crowdsource the answers from the experts and the community. You can find a list of frequently asked questions on Argo CD [here](FAQs/argocd-faq.md) and on ApplicationSet [here](FAQs/applicationset-faq.md).
 
---> While Infrastructure as Code tools provide a way to manage infrastructure, they don’t manage the entire Cloud Native stack. GitOps on the other hand, allows you to manage the whole platform.
-
-With GitOps you can use Infrastructure as Code tools to perform any infrastructure updates through Git.  GitOps extends the tradition of Infrastructure as Code tools. You can read more on this [here](https://queue.acm.org/detail.cfm?id=3237207).
-
-“GitOps is to Infrastructure as Code as Microservices are to SOA or XP is to Agile.” -- Alexis Richardson, CEO of Weaveworks
-
-1. What permissions does Argo CD need in the remote managed cluster?
-
---> `argocd cluster add <context>` command creates:
-- serviceaccount named **argocd-manager** in kube-system
-- clusterrole named **argocd-manager-role**
-- clusterrolebinding named **argocd-manager-role-binding**
-
-3. How is Flux CD similar or different from Argo CD?
-
---> [This](https://luktom.net/en/e1683-argocd-vs-flux) article does an excellent job at answeing the same question.
-
-4. How is Tekton or Argo Workflow different from Argo CD?
-
---> Tekton and Argo Workflow provide ways to declare workflow pipelines for execution on Kubernetes. Tekton focuses on source based workflows, while Argo Workflow is more general purpose.
-
-Argo CD is specifically built to address application delivery/deployment on Kubernetes following GitOps principles. That's why, it offers more sophistication and powerful features which cannot be expected from tools like Tekton or Argo Workflow. 
-
-5. How do you handle dev work when you're testing manifests in a namespace? Do you keep creating PRs or temporarily disable the sync?
-
---> You can disable *auto-sync* under the Sync Policy but there is no concept of disabling sync. For dev work, I'll assume that you're using your own feature branch and also deploying to a dev cluster. In that case, it shouldn't matter if you play around as you can specify your own feature branch for the git repo and you won't need to create PRs (i.e. the webhook event will react to every push on your feature branch).
-
-6. Can we measure the latency of the self-healing functionality for Argo CD?
-
---> If you mean the latency to perform self-heal, I think it will perform the action immediately. The latency to finish is just the same as a normal sync operation. Argo CD is purely Kubernetes event driven, so the timing to detect the drift is almost instantaneous. 
-
-You might also want to check-out retry option that can be configured per Argo CD application. Refer to *syncPolicy* --> *retry* [here](https://argoproj.github.io/argo-cd/operator-manual/application.yaml). 
-
-7. When do we use different generators like the *Matrix Generator*?
-
---> In this demo, the *list-generator* example deploys from a single repository to multiple clusters and the *git-generator-directory* example deploys from a monorepo to a single cluster. If you were to deploy from a monorepo to multiple clusters, you can use *Matrix Generator* and use both *list-generator* and *git-generator-directory* together. This is just an example as you can mix and match other generators together. 
-
-8. What happens when an ApplicationSet is deleted?
-
---> When an ApplicationSet is deleted, the following occurs (in rough order):
-
-- The ApplicationSet resource itself is deleted
-- Any Application resources that were created from this ApplicationSet (as identified by owner reference)
-- Any deployed resources (Deployments, Services, ConfigMaps, etc) on the managed cluster, that were created from that Application resource (by Argo CD), will be deleted.
-    - Argo CD is responsible for handling this deletion, via the deletion finalizer.
-    - To preserve deployed resources, set .syncPolicy.preserveResourcesOnDeletion to true in the ApplicationSet.
-
-Thus the lifecycle of the ApplicationSet, the Application, and the Application's resources, are equivalent.
-
-Read more [here](https://argocd-applicationset.readthedocs.io/en/stable/Application-Deletion/).
-
-9. Is there a concept of extensions in Argo CD?
-
---> Argo CD allows integrating additional config management tools beyond the ones Argo CD is shipped with using [config management plugins](https://argoproj.github.io/argo-cd/user-guide/config-management-plugins/). 
-
-10. Does Argo CD integrate with Terraform?
-
---> While there is no official integration for Argo CD with Terraform, you can certainly use Terraform for your infrastructure deployment and Argo CD for the application deployment. These two tools can work together.
-
+---
 
 ### Resources
 
