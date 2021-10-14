@@ -25,7 +25,11 @@ With GitOps you can use Infrastructure as Code tools to perform any infrastructu
 
 Argo CD is specifically built to address application delivery/deployment on Kubernetes following GitOps principles. That's why, it offers more sophistication and powerful features which cannot be expected from tools like Tekton or Argo Workflow. 
 
-5. How do you handle dev work when you're testing manifests in a namespace? Do you keep creating PRs or temporarily disable the sync?
+5. How to add private repository to Argo CD?
+
+--> You can connect a private repository either using the [CLI](https://argo-cd.readthedocs.io/en/release-1.8/user-guide/commands/argocd_repo_add/), the web UI or by [creating a Kubernetes secret](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories). 
+
+ How do you handle dev work when you're testing manifests in a namespace? Do you keep creating PRs or temporarily disable the sync?
 
 --> You can disable *auto-sync* under the Sync Policy but there is no concept of disabling sync. For dev work, I'll assume that you're using your own feature branch and also deploying to a dev cluster. In that case, it shouldn't matter if you play around as you can specify your own feature branch for the git repo and you won't need to create PRs (i.e. the webhook event will react to every push on your feature branch).
 
@@ -55,15 +59,27 @@ Argo CD should be managed in a relative raw way without many dependencies. I rec
 
 --> While there is no official integration for Argo CD with Terraform, you can certainly use Terraform for your infrastructure deployment and Argo CD for the application deployment. These two tools can work together.
 
-11. I’m adding Linkerd to my deployment managed with Argo CD, and using CM as a cluster CA for mTLS - but because I’m using sealed secrets, the trust anchor issuer isn’t ready for a bit, and the certificate request fails and does not get retried because the issuer is not in a ready state. What can I do?
+11. Does ArgoCD work with terraform for non-k8s workloads?
+
+--> [Crossplane](https://crossplane.io/) would be a project for you to check-out. Most folks using Argo CD are probably using Argo CD to manage standard K8s resources (Deployments/ConfigMaps/etc), but I don't see why you couldn't also use Argo CD with Crossplane to manage external resources.
+
+12. Any suggestions for automating the update of the container image version as part of a deployment pipeline?
+
+--> Three options I can think of:
+
+a. [Argo CD Image Updater](https://github.com/argoproj-labs/argocd-image-updater)
+b. [kpt](https://github.com/GoogleContainerTools/kpt) to replace the image value. It can be used for other fields as well so you have to replace image tag plus environment variable that drives the tracing sidecar you might use. On the backend, you can see trace information based on the image version as well.
+c. `sed` replacing a helm values file for your pipeline
+
+13.  I’m adding Linkerd to my deployment managed with Argo CD, and using CM as a cluster CA for mTLS - but because I’m using sealed secrets, the trust anchor issuer isn’t ready for a bit, and the certificate request fails and does not get retried because the issuer is not in a ready state. What can I do?
 
 --> Although not covered in this demo, please have your SealedSecret in one sync wave and Linkerd in a later wave.
 
-12. How would one prevent a PVC from being deleted in order to preserve data and then be able to bring it back to the app? Every time I delete an application via the argocd-ui, it always deletes the PVC and I lose data.
+14. How would one prevent a PVC from being deleted in order to preserve data and then be able to bring it back to the app? Every time I delete an application via the argocd-ui, it always deletes the PVC and I lose data.
 
 --> You can choose 'Non cascading' delete option as a first try.
 
-13. Do you know if Argo CD is capable to control K8s jobs? I mean can I use Argo CD as to trigger Jobs with certain set of env_variables as parameters?
+15. Do you know if Argo CD is capable to control K8s jobs? I mean can I use Argo CD as to trigger Jobs with certain set of env_variables as parameters?
 
 --> Maybe you want to have a look at Argo Workflows for that. Argo CD is good for managing applications, and not so for one-off things like Jobs are. Argo Workflows is exactly for that - run any kind of jobs in a coordinated way.
 
