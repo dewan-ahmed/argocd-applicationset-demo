@@ -89,7 +89,7 @@ Follow-up question: Workflows and rollouts seems very heavy for my usecase. Ther
 
 16. Suppose I have YAML files for each of the namespace, secret, configmap, pvc, deployment, service, route. How does Argo CD know which YAML to apply first (Namespace, secret, CM, PVC ...etc)?
 
---> Argo CD has a built-in order as can be seen [here](https://github.com/argoproj/gitops-engine/blob/7495c633c378ca446d166bd5c9e2a46c7e40b476/pkg/sync/sync_tasks.go#L27). If you need more fine grained control, you have to use [sync waves]([ as described here](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/#how-do-i-configure-waves)).
+--> Argo CD has a built-in order as can be seen [here](https://github.com/argoproj/gitops-engine/blob/7495c633c378ca446d166bd5c9e2a46c7e40b476/pkg/sync/sync_tasks.go#L27). If you need more fine grained control, you have to use [sync waves](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/#how-do-i-configure-waves).
 
 17. Suppose I have a Git repo example-repo and under this I have 5 microservices directories `db-app` `notification` `events` etc. How can I instruct Argo to deploy the microservices in a specific order?
 
