@@ -86,3 +86,11 @@ c. `sed` replacing a helm values file for your pipeline
 Follow-up question: Workflows and rollouts seems very heavy for my usecase. There're only two jobs I want to run via Argo-CD, maybe I'm wrong but it seems easier to implement this case using ArgoCD then, move everything else to workflows\rollouts.
 
 --> You can run jobs as hooks. This way, they will not affect sync status and if you have a deletion policy on them (e.g. delete before run), you can run them on each sync. 
+
+16. Suppose I have YAML files for each of the namespace, secret, configmap, pvc, deployment, service, route. How does Argo CD know which YAML to apply first (Namespace, secret, CM, PVC ...etc)?
+
+--> Argo CD has a built-in order as can be seen [here](https://github.com/argoproj/gitops-engine/blob/7495c633c378ca446d166bd5c9e2a46c7e40b476/pkg/sync/sync_tasks.go#L27). If you need more fine grained control, you have to use [sync waves]([ as described here](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/#how-do-i-configure-waves)).
+
+17. Suppose I have a Git repo example-repo and under this I have 5 microservices directories `db-app` `notification` `events` etc. How can I instruct Argo to deploy the microservices in a specific order?
+
+--> [Sync Waves](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/) + [Sync Hooks](https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/1.3-1.4/#sync-hooks). For example, you'll have a presync hook that waits for your application to finish before the next resource starts. However, I'd recommend implementing your services so they are not order dependent, if at all possible.
