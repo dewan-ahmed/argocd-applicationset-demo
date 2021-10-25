@@ -117,6 +117,7 @@ As I deliver talks, I collect questions from the audience and then crowdsource t
 - [Alexis Richardson: GitOps - Git push all the things](https://www.youtube.com/watch?v=uWzgmmCzdF4)
 - [Everything You Need To Become a GitOps Ninja - Alex C. & Alexander M.](https://www.youtube.com/watch?v=r50tRQjisxw)
 - [GitOps in 1 slide](https://twitter.com/vitorsilva/status/999978906903080961/photo/1)
+- [GitOps Principles from the GitOps Working Group](https://github.com/open-gitops/documents/blob/v0.1.0/PRINCIPLES.md)
 - [Kubernetes anti-patterns: Let's do GitOps, not CIOps!](https://www.weave.works/blog/kubernetes-anti-patterns-let-s-do-gitops-not-ciops)
 - [Argo CD - GitHub](https://github.com/argoproj/argo-cd)
 - [Argo CD - ReadTheDocs](https://argo-cd.readthedocs.io/en/stable/)
